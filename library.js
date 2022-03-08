@@ -1,20 +1,29 @@
-let myLibrary = [
-    {title : 'Watchmen',
-     author : 'Alan Moore',
-     num: 416,
-     read: true
-    },
-    {title: 'Messenger of Deception',
-    author: 'Jacques Vallee',
-    num: 288,
-    read: false
-    },
-    {title: '$100M Offers: How To Make Offers So Good People Feel Stupid Saying No',
-     author: 'Alex Harmozi',
-     num: 164,
-     read: false    
+const form = document.querySelector('form');
+const btn = document.querySelector('.newbook');
+const closer = document.querySelector('.close');
+btn.onclick  = () => {form.style.display = "block"};
+closer.onclick = () => {form.style.display = "none"}; 
+window.onclick = function(event) {
+    if (event.target == window) {
+      form.style.display = "none";
     }
-
+  }
+let myLibrary = [
+    // {title : 'Watchmen',
+    //  author : 'Alan Moore',
+    //  num: 416,
+    //  read: true
+    // },
+    // {title: 'Messengers of Deception',
+    // author: 'Jacques Vallee',
+    // num: 288,
+    // read: false
+    // },
+    // {title: '$100M Offers: How To Make Offers So Good People Feel Stupid Saying No',
+    //  author: 'Alex Harmozi',
+    //  num: 164,
+    //  read: false    
+    // }
     
 ];
 function Book(title,author,num, read) {
@@ -23,10 +32,21 @@ function Book(title,author,num, read) {
     this.pages = num;
     this.pages = read;
 }
-
-newbook = document.querySelector(".newbook").onclick = () => {
-    
+function newBook() {
+    let formtitle = document.getElementsByClassName("title").value;
+    let formauthor = document.getElementsByClassName("author").value;
+    let formpages = document.getElementsByClassName("pages").value;
+    let formread = document.getElementsByClassName("read").value;
+    let bool = false;
+    if (formread.checked) {
+        bool = true;
+    }
+    let book = new Book(formtitle,formauthor,formpages,bool);
+    addBookToLibrary(book);
 }
+// const newbook = document.querySelector(".newbook").onclick = () => {
+//  newBook();   
+// }
 function addBookToLibrary() {
     myLibrary.push(book);
 }

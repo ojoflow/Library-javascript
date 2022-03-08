@@ -1,7 +1,64 @@
 .library {
-    border: solid 8px brown;
-    height: 20vh;
+    
 }
 .shelf {
+    border: solid 8px brown;
+    height: 20vh;  
+}
+.form-container {display: none;}
+.form-container.open {display: block;}
+form {
+    
+    /* text-align: center; */
+    border: 2px solid black;
+    width: 50%;
+    height: 50%;
+    margin: auto;
+    padding: 10px 20px;
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1;
+
+}
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    content: ' ';
+    background: rgba(0,0,0,.5);
+    z-index: 0;
+}
+.newbook{
+
+}
+
+.close {
+    color: #4e4e4e;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+form h1 {
+    margin-left: 160px;
+}
+.field-container {
+    width: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-items: start;
    
+}
+.field-container button {
+    width: 50%;
 }

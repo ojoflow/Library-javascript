@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="style.css" rel="stylesheet">
     <title>Library</title>
-    <script src="library.js"></script>
+    <script defer src="library.js"></script>
 </head>
 <body>
     <div class="library">
@@ -18,22 +18,34 @@
         
     </div>
     <button class="newbook">NEW BOOK</button>
-    <form action="get" class="form-container">
-        <h1>Add Book Info</h1>
-    
-        <label for="title"><b>Title</b></label>
-        <input type="text" placeholder="Title" name="title" required>
-    
-        <label for="author"><b>Author</b></label>
-        <input type="text" placeholder="Author" name="author" required>
-
-        <label for="pages"><b>Pages</b></label>
-        <input type="number" placeholder="Pages" name="pages" required>
-
-        <label for="Read"><b>Read</b></label>
-        <input type="checkbox" placeholder="Read" name="read">
-    
-        <button type="button" class="Submit" onclick="closeForm()">Submit</button>
-      </form>
+    <!-- <div class="form-container"> -->
+        <!-- <div class="backdrop"></div> -->
+        <form action="get">
+            <div class="close">X</div>
+            <h1>Add Book Info</h1>
+            <div class="field-container">
+               <div class="field">
+                    <label for="title"><b>Title</b></label>
+                    <input type="text" class="title" placeholder="Title" name="title" required>
+                </div> 
+                <br>
+                <div class="field">
+                    <label for="author"><b>Author</b></label>
+                    <input type="text" class="author" placeholder="Author" name="author" required>
+                </div>
+                <br>
+                <div class="field">
+                <label for="pages"><b>Pages</b></label>
+                <input type="number" class="pages" placeholder="Pages" name="pages" required>
+                </div>
+                <br>
+                <div class="field">
+                <label for="Read"><b>Read</b></label>
+                <input type="checkbox" class="read" placeholder="Read" name="read">
+                </div>
+                <button type="button" class="Submit" onclick="closeForm()">Submit</button>
+            </div>
+        </form>
+    <!-- </div> -->
 </body>
 </html>
