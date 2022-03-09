@@ -10,16 +10,18 @@
 </head>
 <body>
     <div class="library">
+        <h1>Library</h1>
+        <hr>
         <div class="shelf">
                 <div class="book-container">
                    
                 </div>
         </div>
-        
+        <hr>
     </div>
     <button class="newbook">NEW BOOK</button>
-    <!-- <div class="form-container"> -->
-        <!-- <div class="backdrop"></div> -->
+    <div class="form-container">
+        <div class="backdrop"></div>
         <form action="get">
             <div class="close">X</div>
             <h1>Add Book Info</h1>
@@ -40,12 +42,19 @@
                 </div>
                 <br>
                 <div class="field">
-                <label for="Read"><b>Read</b></label>
-                <input type="checkbox" class="read" placeholder="Read" name="read">
+                    <label for="read"><b>Read</b></label>
+                    <!-- <div class="switch">
+                    <input type="checkbox" class="read" placeholder="Read" name="read" required>
+                    <span class="slider"></span>
+                    </div> -->
+                    <label class="switch">
+                        <input type="checkbox" class="read">
+                        <span class="slider"></span>
+                      </label>
                 </div>
-                <button type="button" class="Submit" onclick="closeForm()">Submit</button>
+                <button type="button" class="Submit" >Submit</button>
             </div>
         </form>
-    <!-- </div> -->
+    </div>
 </body>
 </html>
