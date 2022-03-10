@@ -22,23 +22,26 @@
     <button class="newbook">NEW BOOK</button>
     <div class="form-container">
         <div class="backdrop"></div>
-        <form action="get">
+        <form action="#">
             <div class="close">X</div>
             <h1>Add Book Info</h1>
             <div class="field-container">
                <div class="field">
                     <label for="title"><b>Title</b></label>
-                    <input type="text" class="title" placeholder="Title" name="title" required>
+                    <input type="text" class="title" placeholder="Title" name="title"/>
+                  
                 </div> 
                 <br>
                 <div class="field">
                     <label for="author"><b>Author</b></label>
-                    <input type="text" class="author" placeholder="Author" name="author" required>
+                    <input type="text" class="author" placeholder="Author" name="author"/>
+                  
                 </div>
                 <br>
                 <div class="field">
                 <label for="pages"><b>Pages</b></label>
-                <input type="number" class="pages" placeholder="Pages" name="pages" required>
+                <input type="number" class="pages" placeholder="Pages" name="pages"/>
+                  
                 </div>
                 <br>
                 <div class="field">
@@ -48,13 +51,53 @@
                     <span class="slider"></span>
                     </div> -->
                     <label class="switch">
-                        <input type="checkbox" class="read">
+                        <input class="read" type="checkbox" />
                         <span class="slider"></span>
-                      </label>
+                        
+                    </label>
                 </div>
-                <button type="button" class="Submit" >Submit</button>
+                <button type="submit" class="submit" >Submit</button>
             </div>
         </form>
+        <div class="edit-form-container">
+            <div class="backdrop"></div>
+            <form action="#">
+                <div class="close">X</div>
+                <h1>Edit Book Info</h1>
+                <div class="field-container">
+                   <div class="field">
+                        <label for="title"><b>Title</b></label>
+                        <input type="text" class="title" placeholder="Title" name="title"/>
+                      
+                    </div> 
+                    <br>
+                    <div class="field">
+                        <label for="author"><b>Author</b></label>
+                        <input type="text" class="author" placeholder="Author" name="author"/>
+                      
+                    </div>
+                    <br>
+                    <div class="field">
+                    <label for="pages"><b>Pages</b></label>
+                    <input type="number" class="pages" placeholder="Pages" name="pages"/>
+                      
+                    </div>
+                    <br>
+                    <div class="field">
+                        <label for="read"><b>Read</b></label>
+                        <!-- <div class="switch">
+                        <input type="checkbox" class="read" placeholder="Read" name="read" required>
+                        <span class="slider"></span>
+                        </div> -->
+                        <label class="switch">
+                            <input class="read" type="checkbox" />
+                            <span class="slider"></span>
+                            
+                        </label>
+                    </div>
+                    <button type="submit" class="submit-edit" >Confirm Edit</button>
+                </div>
+            </form>
     </div>
 </body>
 </html>

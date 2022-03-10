@@ -1,12 +1,32 @@
+
+const shelf = document.querySelector(".book-container");
 const form = document.querySelector('.form-container');
 const btn = document.querySelector('.newbook');
+const editform = document.querySelector('.edit-form-container');
+const editbtn = document.querySelector('.edit');
+
 const closer = document.querySelector('.close');
 const backdrop = document.querySelector('.backdrop');
+const formtitle = document.getElementsByClassName("title")[0];
+const formauthor = document.getElementsByClassName("author")[0];
+const formpages = document.getElementsByClassName("pages")[0];
+const formread = document.getElementsByClassName("read")[0];
+//form behavior
 function removeForm() {form.classList.remove('open')};
 function addForm() {form.classList.add('open')};
+function clearForm() {
+    formtitle.value = '';
+    formauthor.value = '';
+    formpages.value= '';
+    formread.checked = false;
+}
+function removeEditForm() {editform.classList.remove('open')};
+function addEditForm() {editform.classList.add('open')};
 closer.onclick = () => {removeForm()}; 
 btn.onclick = () => {addForm();}
+editbtn.onclick = () =>{addForm()};
 backdrop.onclick = () => {removeForm();}
+
 let myLibrary = [
     // {title : 'Watchmen',
     //  author : 'Alan Moore',
@@ -25,10 +45,12 @@ let myLibrary = [
     // }
     
 ];
-const submit = document.querySelector('.Submit');
+const submit = document.querySelector('.submit');
 submit.onclick = () => {
-    removeForm();
     newBook();
+    
+    removeForm();
+
 }
 function Book(title,author,num, read) {
     this.title = title;
@@ -37,44 +59,45 @@ function Book(title,author,num, read) {
     this.read = read;
 }
 function newBook() {
-    let formtitle = document.getElementsByClassName("title")[0].value;
-    let formauthor = document.getElementsByClassName("author")[0].value;
-    let formpages = document.getElementsByClassName("pages")[0].value;
-    let formread = document.getElementsByClassName("read")[0].value;
-    let bool = false;
-    if (formread.checked) {
-        bool = true;
-    }
-    let book = new Book(formtitle,formauthor,formpages,bool);
+
+    let book = new Book(formtitle.value,formauthor.value,formpages.value,formread.checked);
     myLibrary.push(book);
     displayBookOnShelf(myLibrary);
+    clearForm();
+    console.log(myLibrary);
 }
-const shelf = document.querySelector(".book-container");
+
+function editBook() {
+
+}
 function displayBookOnShelf(myLibrary) {
     shelf.innerHTML = ''; //empty the parent 'book-container' class
     for(let book in myLibrary) {
-       console.log(myLibrary[book]);
-        let bookcover = document.createElement("div");
+    //    console.log(myLibrary[book]);
+        const bookcover = document.createElement("div");
         bookcover.classList.add('book');
 
-        let bookinfo = document.createElement("ul");
-        let title = document.createTextNode(`${myLibrary[book].title}`);
+        const bookinfo = document.createElement("ul");
+        const title = document.createTextNode(`${myLibrary[book].title}`);
         
-        let author = document.createTextNode(`by ${myLibrary[book].author}`);
-        let authorList = document.createElement("li");
+        const author = document.createTextNode(`by ${myLibrary[book].author}`);
+        const authorList = document.createElement("li");
         authorList.classList.add('author');
         authorList.appendChild(author);
         
-        let pages = document.createTextNode(`Pages: ${myLibrary[book].pages}`);
-        let pagesList = document.createElement("li");
+        const pages = document.createTextNode(`Pages: ${myLibrary[book].pages}`);
+        const pagesList = document.createElement("li");
         pagesList.classList.add('pages');
         pagesList.appendChild(pages);
         
-        let read = document.createTextNode(`Read Status: ${myLibrary[book].read}`);
-        let readStatus = document.createElement("li");
+        const read = document.createTextNode(`Read Status: ${myLibrary[book].read}`);
+        const readStatus = document.createElement("li");
         readStatus.classList.add('read-status');
         readStatus.appendChild(read);
-        
+        const edit = document.createElement("button");
+        edit.classList.add('edit');
+        const editText = document.createTextNode('Edit');
+        edit.appendChild(editText);
         let h3el = document.createElement("h3");
         h3el.appendChild(title);
         bookinfo.appendChild(authorList);
@@ -82,13 +105,8 @@ function displayBookOnShelf(myLibrary) {
         bookinfo.appendChild(readStatus);
         bookcover.appendChild(h3el);
         bookcover.appendChild(bookinfo);
+        bookcover.appendChild(edit);
         shelf.appendChild(bookcover);
         // resetForm();
     }
-}
-function resetForm() {
-    document.getElementsByClassName('title')[0].value = '';
-    document.getElementsByClassName('author')[0].value = '';
-    document.getElementsByClassName('pages')[0].value = '';
-    document.getElementsByClassName('read')[0].value = false;
 }

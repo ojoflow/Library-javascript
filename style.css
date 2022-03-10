@@ -1,6 +1,4 @@
-.library {
-    
-}
+
 h1 {
     font-weight: bold;
     font-family: Arial;
@@ -8,12 +6,12 @@ h1 {
 .shelf {
     /* border: solid 8px brown; */
     background-color: rgb(232, 232, 232);
-    height: 30vh;
+    height: 50%;
     
 }
 .book-container {
     display: grid;
-    grid-template-columns: repeat(3,0.4fr);
+    grid-template-columns: repeat(3,15rem);
     grid-template-rows: 2fr;
     padding: 18px;
     grid-gap: 10px;
@@ -29,7 +27,18 @@ h1 {
     border: 2px #000000 solid;
     box-shadow: 5px 5px 1rem rgba(30, 58, 138, 0.2)
 }
-
+.edit {
+    font-size: 1rem;
+    margin: 0 auto;
+    width: 50%;
+    padding: 0.5rem 0.5rem;
+    border: none;
+    font-weight: bold;
+    font-family: Arial;
+    color: #000000;
+    background-color: #ffffff;
+    cursor: pointer;
+}
 ul {
     padding-top: 20px;
     padding-left: 0;
@@ -86,7 +95,8 @@ form input {
     font-weight: 900;
    
 }
-.field {
+
+.field, .close {
     font-family: Arial;
 }
 .field-container button {
@@ -102,47 +112,58 @@ form input {
     cursor: pointer;
     transition: transform 1s ease-in;
 }
+.field p {
+  color: red;
+  display: none;
+}
+/* input:required:valid {
+  border-color: green;
+}
+input:invalid {
+  border-color: red;
+} */
 .switch {
-    margin-top: 15px;
+   margin-top: 5px;
     position: relative;
     display: inline-block;
     width: 60px;
     height:30px;
     
-  }
-.switch input {
+}
+ .switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
+
 .slider {
-    position: absolute;
+  position: absolute;
   cursor: pointer;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  /* -webkit-transition: .4s; */
+  -webkit-transition: .4s;
   transition: .4s;
-  border-radius: 34px;
+  border-radius: 40px;
 
 }
 
 .slider:before {
     position: absolute;
-    content: "";
-    height: 20px;
-    width: 30px;
+    content: '';
+    height: 22px;
+    width: 22px;
     left: 2px;
     top: 4px;
     bottom: 4px;
-    border-radius: 100%;
+    border-radius: 40px;
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
   }
-  
+ 
   input:checked + .slider {
     background-color: #2196F3;
     
@@ -151,29 +172,14 @@ form input {
   input:focus + .slider {
     box-shadow: 0 0 1px #2196F3;
   }
-  
+ 
   input:checked + .slider:before {
-    -webkit-transform: translateX(20px);
-    -ms-transform: translateX(20px);
-    transform: translateX(20px);
+    -webkit-transform: translateX(30px);
+    -ms-transform: translateX(30px);
+    transform: translateX(30px);
   }
- /* 
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-    /* border-radius: 34px;
-  }
-/* .slider:before {
-    border-radius: 50%;
-  }  */
-.newbook{
+
+.newbook{ 
     font-size: 1.2rem;
     padding: 0.5rem 2rem;
     border: 4px solid black;
@@ -197,3 +203,17 @@ form input {
     text-decoration: none;
     cursor: pointer;
   }
+
+.edit-form-container {display: none;}
+.edit-form-container.open {display: block;}
+.submit-edit{
+    font-size: 1.2rem;
+    padding: 0.5rem 2rem;
+    border: 4px solid black;
+    font-weight: bold;
+    font-family: Arial;
+    color: #000000;
+    background-color: #ffffff;
+    cursor: pointer;
+   
+}
