@@ -27,7 +27,7 @@ h1 {
     border: 2px #000000 solid;
     box-shadow: 5px 5px 1rem rgba(30, 58, 138, 0.2)
 }
-.edit {
+.book-edit, .delete {
     font-size: 1rem;
     margin: 0 auto;
     width: 50%;
@@ -204,8 +204,8 @@ input:invalid {
     cursor: pointer;
   }
 
-.edit-form-container {display: none;}
-.edit-form-container.open {display: block;}
+.edit-form {display: none;}
+.edit-form.open {display: block;}
 .submit-edit{
     font-size: 1.2rem;
     padding: 0.5rem 2rem;

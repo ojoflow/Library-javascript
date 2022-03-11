@@ -1,57 +1,43 @@
-
+let myLibrary = [];
 const shelf = document.querySelector(".book-container");
 const form = document.querySelector('.form-container');
-const btn = document.querySelector('.newbook');
-const editform = document.querySelector('.edit-form-container');
-const editbtn = document.querySelector('.edit');
-
-const closer = document.querySelector('.close');
-const backdrop = document.querySelector('.backdrop');
+const editform = document.querySelector('.edit-form');
 const formtitle = document.getElementsByClassName("title")[0];
 const formauthor = document.getElementsByClassName("author")[0];
 const formpages = document.getElementsByClassName("pages")[0];
 const formread = document.getElementsByClassName("read")[0];
 //form behavior
-function removeForm() {form.classList.remove('open')};
-function addForm() {form.classList.add('open')};
+
 function clearForm() {
     formtitle.value = '';
     formauthor.value = '';
     formpages.value= '';
     formread.checked = false;
 }
-function removeEditForm() {editform.classList.remove('open')};
-function addEditForm() {editform.classList.add('open')};
-closer.onclick = () => {removeForm()}; 
-btn.onclick = () => {addForm();}
-editbtn.onclick = () =>{addForm()};
-backdrop.onclick = () => {removeForm();}
 
-let myLibrary = [
-    // {title : 'Watchmen',
-    //  author : 'Alan Moore',
-    //  num: 416,
-    //  read: true
-    // },
-    // {title: 'Messengers of Deception',
-    // author: 'Jacques Vallee',
-    // num: 288,
-    // read: false
-    // },
-    // {title: '$100M Offers: How To Make Offers So Good People Feel Stupid Saying No',
-    //  author: 'Alex Harmozi',
-    //  num: 164,
-    //  read: false    
-    // }
-    
-];
-const submit = document.querySelector('.submit');
-submit.onclick = () => {
-    newBook();
-    
-    removeForm();
+document.addEventListener("click", (e) => {
+       if(e.target.classList.contains('newbook')) {
+        form.classList.add('open');
+       }
+       if(e.target.classList.contains('close') || e.target.classList.contains('backdrop')){
+        form.classList.remove('open');
+        editform.classList.remove('open');
+       }
+       if(e.target.classList.contains('submit')) {
+        newBook();
+        form.classList.remove('open');
+       }
+       if(e.target.classList.contains('book-edit')) {
+        editform.classList.add('open');
+        
+       }
+       if(e.target.classList.contains("delete")) {
+        deleteBook(e);
+       }
+    });
 
-}
+
+
 function Book(title,author,num, read) {
     this.title = title;
     this.author = author;
@@ -59,24 +45,61 @@ function Book(title,author,num, read) {
     this.read = read;
 }
 function newBook() {
-
+  
     let book = new Book(formtitle.value,formauthor.value,formpages.value,formread.checked);
     myLibrary.push(book);
     displayBookOnShelf(myLibrary);
-    clearForm();
-    console.log(myLibrary);
+    clearForm(formtitle.value,formauthor.value,formpages.value,formread.checked);
 }
 
-function editBook() {
+function editBook(e) {
+    const editTitle =  document.querySelector("edit-title");
+    const editAuthor = document.querySelector("edit-author");
+    const editPages =  document.querySelector("edit-pages");
+    const editRead = document.querySelector("read.edit");
+   
+    const editBookButton = document.querySelector(".book-edit");
 
+  
+    const index = e.target.parentNode.parentNode.dataset.index;
+    console.log(index);
+    editBookButton.dataset.index = index;
+    editTitle.value = myLibrary[index].title;
+    editAuthor.value = myLibrary[index].author;
+    editPages.value = myLibrary[index].pages;
+    editRead.value = myLibrary[index].read;
+  
+    editBookButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (event.target.dataset.index === index) {
+        myLibrary[index].title = editBookTitle.value;
+        myLibrary[index].author = editBookAuthor.value;
+        myLibrary[index].currentPage = editBookCurrentPage.value;
+        myLibrary[index].totalPage = editBookTotalPage.value;
+        myLibrary[index].status = editBookStatus.value;
+        index = e.target.
+        displayBookOnShelf(myLibrary)
+      } else {
+        return;
+      }
+    });
+  
+}
+function deleteBook(e) {
+  
+        const index = e.target.parentElement.id;
+        const bookcover = document.getElementsByClassName('book')[index];
+        shelf.removeChild(bookcover);
+        myLibrary.splice(index, 1);
+    
 }
 function displayBookOnShelf(myLibrary) {
     shelf.innerHTML = ''; //empty the parent 'book-container' class
     for(let book in myLibrary) {
-    //    console.log(myLibrary[book]);
         const bookcover = document.createElement("div");
         bookcover.classList.add('book');
-
+        //adding an ID attribute to the book elements
+        bookcover.id = myLibrary.indexOf(myLibrary[book]);
         const bookinfo = document.createElement("ul");
         const title = document.createTextNode(`${myLibrary[book].title}`);
         
@@ -94,11 +117,18 @@ function displayBookOnShelf(myLibrary) {
         const readStatus = document.createElement("li");
         readStatus.classList.add('read-status');
         readStatus.appendChild(read);
+        
         const edit = document.createElement("button");
-        edit.classList.add('edit');
+        edit.classList.add('book-edit');
         const editText = document.createTextNode('Edit');
         edit.appendChild(editText);
-        let h3el = document.createElement("h3");
+
+        const del = document.createElement("button");
+        del.classList.add('delete');
+        const delText = document.createTextNode('Delete');
+        del.appendChild(delText);
+
+        const h3el = document.createElement("h3");
         h3el.appendChild(title);
         bookinfo.appendChild(authorList);
         bookinfo.appendChild(pagesList);
@@ -106,7 +136,8 @@ function displayBookOnShelf(myLibrary) {
         bookcover.appendChild(h3el);
         bookcover.appendChild(bookinfo);
         bookcover.appendChild(edit);
+        bookcover.appendChild(del);
         shelf.appendChild(bookcover);
-        // resetForm();
+    
     }
 }
