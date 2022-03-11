@@ -3,7 +3,7 @@ The library project of The Odin Project!
 
 I emphasized a clean and simple design. The 'new book' button opens a form that the user can input the data to create a new book card.
 
-![](preview.png)
+![](preview.PNG)
 
 Live Demo: 
 
