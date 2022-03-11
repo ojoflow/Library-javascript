@@ -14,7 +14,6 @@ function clearForm() {
     formpages.value= '';
     formread.checked = false;
 }
-
 document.addEventListener("click", (e) => {
        if(e.target.classList.contains('newbook')) {
         form.classList.add('open');
@@ -27,10 +26,13 @@ document.addEventListener("click", (e) => {
         newBook();
         form.classList.remove('open');
        }
+       
        if(e.target.classList.contains('book-edit')) {
         editform.classList.add('open');
-        
+      
+        editBook(e);
        }
+     
        if(e.target.classList.contains("delete")) {
         deleteBook(e);
        }
@@ -46,51 +48,65 @@ function Book(title,author,num, read) {
 }
 function newBook() {
   
-    let book = new Book(formtitle.value,formauthor.value,formpages.value,formread.checked);
+    let read;
+    read = formread.checked ? 'Read' : 'Not Read'
+    let book = new Book(formtitle.value,formauthor.value,formpages.value,read);
     myLibrary.push(book);
+ 
     displayBookOnShelf(myLibrary);
     clearForm(formtitle.value,formauthor.value,formpages.value,formread.checked);
 }
 
 function editBook(e) {
-    const editTitle =  document.querySelector("edit-title");
-    const editAuthor = document.querySelector("edit-author");
-    const editPages =  document.querySelector("edit-pages");
-    const editRead = document.querySelector("read.edit");
-   
-    const editBookButton = document.querySelector(".book-edit");
-
-  
-    const index = e.target.parentNode.parentNode.dataset.index;
-    console.log(index);
-    editBookButton.dataset.index = index;
-    editTitle.value = myLibrary[index].title;
-    editAuthor.value = myLibrary[index].author;
-    editPages.value = myLibrary[index].pages;
+    const index = e.target.parentElement.id; 
+    
+    const editTitle =  document.querySelector(".edit-title");
+    const editAuthor = document.querySelector(".edit-author");
+    const editPages =  document.querySelector(".edit-pages");
+    const editRead = document.querySelector(".read.edit");
+    const editButton = document.querySelector('.edit-button');
+    editButton.dataset.index = index;
+    editTitle.value =  myLibrary[index].title;
+    editAuthor.value =  myLibrary[index].author;
+    editPages.value =  myLibrary[index].pages;
     editRead.value = myLibrary[index].read;
-  
-    editBookButton.addEventListener("click", (event) => {
-      event.preventDefault();
-      if (event.target.dataset.index === index) {
-        myLibrary[index].title = editBookTitle.value;
-        myLibrary[index].author = editBookAuthor.value;
-        myLibrary[index].currentPage = editBookCurrentPage.value;
-        myLibrary[index].totalPage = editBookTotalPage.value;
-        myLibrary[index].status = editBookStatus.value;
-        index = e.target.
-        displayBookOnShelf(myLibrary)
-      } else {
-        return;
-      }
-    });
-  
-}
+    editButton.addEventListener('click', (e) =>
+        {
+            if(e.target.dataset.index === index){
+                if(editTitle.value !== ''){
+                    myLibrary[index].title =  editTitle.value;
+                }
+                if(editAuthor.value !== ''){
+                    myLibrary[index].author =  editAuthor.value;
+                }
+                if(editPages.value !== ''){
+                myLibrary[index].pages = editPages.value;
+                }
+                let read;
+                read = editRead.checked ? 'Read' : 'Not Read';
+                myLibrary[index].read = read;
+               
+                document.getElementById('title'+index).textContent = myLibrary[index].title;
+                document.getElementById(`author${index}`).textContent = `by ${myLibrary[index].author}`;
+                document.getElementById(`pages${index}`).textContent = `Pages: ${myLibrary[index].pages}`;
+                document.getElementById(`read${index}`).textContent = `Read Status: ${myLibrary[index].read}`;
+                editform.classList.remove('open')
+            };
+        
+        })
+
+} 
+    
 function deleteBook(e) {
-  
+
         const index = e.target.parentElement.id;
         const bookcover = document.getElementsByClassName('book')[index];
         shelf.removeChild(bookcover);
         myLibrary.splice(index, 1);
+        let books = document.getElementsByClassName('book');
+        for(i= 0; i<books.length; i++){
+            books[i].id= i;
+        }
     
 }
 function displayBookOnShelf(myLibrary) {
@@ -98,26 +114,30 @@ function displayBookOnShelf(myLibrary) {
     for(let book in myLibrary) {
         const bookcover = document.createElement("div");
         bookcover.classList.add('book');
-        //adding an ID attribute to the book elements
+        //adding an ID attribute to the book elements to keep track for editing and deleting books
         bookcover.id = myLibrary.indexOf(myLibrary[book]);
+        //dynamic generation of books
         const bookinfo = document.createElement("ul");
         const title = document.createTextNode(`${myLibrary[book].title}`);
-        
+     
         const author = document.createTextNode(`by ${myLibrary[book].author}`);
         const authorList = document.createElement("li");
-        authorList.classList.add('author');
+        authorList.classList.add(`author`);
         authorList.appendChild(author);
+        authorList.id = 'author'+myLibrary.indexOf(myLibrary[book]);
         
         const pages = document.createTextNode(`Pages: ${myLibrary[book].pages}`);
         const pagesList = document.createElement("li");
-        pagesList.classList.add('pages');
+        pagesList.classList.add(`pages`);
         pagesList.appendChild(pages);
+        pagesList.id = 'pages'+ myLibrary.indexOf(myLibrary[book]);
         
         const read = document.createTextNode(`Read Status: ${myLibrary[book].read}`);
         const readStatus = document.createElement("li");
-        readStatus.classList.add('read-status');
+        readStatus.classList.add(`read-status`);
         readStatus.appendChild(read);
-        
+        readStatus.id = 'read'+ myLibrary.indexOf(myLibrary[book]);
+
         const edit = document.createElement("button");
         edit.classList.add('book-edit');
         const editText = document.createTextNode('Edit');
@@ -129,7 +149,10 @@ function displayBookOnShelf(myLibrary) {
         del.appendChild(delText);
 
         const h3el = document.createElement("h3");
+        h3el.classList.add(`title`);
         h3el.appendChild(title);
+        h3el.id = 'title' + myLibrary.indexOf(myLibrary[book]);
+        
         bookinfo.appendChild(authorList);
         bookinfo.appendChild(pagesList);
         bookinfo.appendChild(readStatus);

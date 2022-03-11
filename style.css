@@ -11,8 +11,8 @@ h1 {
 }
 .book-container {
     display: grid;
-    grid-template-columns: repeat(3,15rem);
-    grid-template-rows: 2fr;
+    grid-template-columns: repeat(auto-fit,15rem);
+    grid-template-rows: 1fr;
     padding: 18px;
     grid-gap: 10px;
 }
