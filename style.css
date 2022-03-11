@@ -3,6 +3,11 @@ h1 {
     font-weight: bold;
     font-family: Arial;
 }
+hr {
+  height: 0px;
+  border: none;
+  border-top: 5px solid black;
+}
 .shelf {
     /* border: solid 8px brown; */
     background-color: rgb(232, 232, 232);

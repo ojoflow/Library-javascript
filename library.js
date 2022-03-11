@@ -15,6 +15,7 @@ function clearForm() {
     formread.checked = false;
 }
 document.addEventListener("click", (e) => {
+       
        if(e.target.classList.contains('newbook')) {
         form.classList.add('open');
        }
@@ -23,6 +24,7 @@ document.addEventListener("click", (e) => {
         editform.classList.remove('open');
        }
        if(e.target.classList.contains('submit')) {
+        e.preventDefault();
         newBook();
         form.classList.remove('open');
        }
@@ -58,7 +60,8 @@ function newBook() {
 }
 
 function editBook(e) {
-    const index = e.target.parentElement.id; 
+   
+    let index = e.target.parentElement.id; 
     
     const editTitle =  document.querySelector(".edit-title");
     const editAuthor = document.querySelector(".edit-author");
@@ -72,6 +75,7 @@ function editBook(e) {
     editRead.value = myLibrary[index].read;
     editButton.addEventListener('click', (e) =>
         {
+            e.preventDefault();
             if(e.target.dataset.index === index){
                 if(editTitle.value !== ''){
                     myLibrary[index].title =  editTitle.value;
@@ -85,7 +89,6 @@ function editBook(e) {
                 let read;
                 read = editRead.checked ? 'Read' : 'Not Read';
                 myLibrary[index].read = read;
-               
                 document.getElementById('title'+index).textContent = myLibrary[index].title;
                 document.getElementById(`author${index}`).textContent = `by ${myLibrary[index].author}`;
                 document.getElementById(`pages${index}`).textContent = `Pages: ${myLibrary[index].pages}`;
@@ -98,14 +101,22 @@ function editBook(e) {
 } 
     
 function deleteBook(e) {
-
+        e.preventDefault();
         const index = e.target.parentElement.id;
         const bookcover = document.getElementsByClassName('book')[index];
         shelf.removeChild(bookcover);
         myLibrary.splice(index, 1);
         let books = document.getElementsByClassName('book');
+        let title = document.getElementsByClassName('title');
+        let author = document.getElementsByClassName('author');
+        let pages = document.getElementsByClassName('pages');
+        let read = document.getElementsByClassName('read-status');
         for(i= 0; i<books.length; i++){
             books[i].id= i;
+            title[i].id = 'title'+i;
+            author[i].id = 'author'+i;
+            pages[i].id = 'pages'+i;
+            read[i].id = 'read'+i;
         }
     
 }
