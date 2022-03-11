@@ -1,7 +1,7 @@
 # Library-javascript
 The library project of The Odin Project!
 
-Live Demo: ojoflow.github.io/library-javascript/
+Live Demo: https://ojoflow.github.io/Library-javascript/
 
 I emphasized a clean and simple design. The 'new book' button opens a form that the user can input the data to create a new book card.
 
