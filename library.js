@@ -175,3 +175,13 @@ function displayBookOnShelf(myLibrary) {
     
     }
 }
+
+//use `class` syntax    
+// class Book {
+//     constructor(title,author,num, read) {
+//         this.title = title;
+//         this.author = author;
+//         this.pages = num;
+//         this.read = read;
+//     }
+// } 
